@@ -1,9 +1,11 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery_app/core/constants/text_constants.dart';
 import 'package:food_delivery_app/view/login_view/login_view.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
+import '../../core/extensions/app_color_extensions.dart';
 import 'onboarding_view_model.dart';
 
 class OnboardingView extends StatelessWidget {
@@ -11,6 +13,7 @@ class OnboardingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColorsExtensions>()!;
     return Scaffold(
       body: ViewModelBuilder<OnboardingViewModel>.reactive(
         viewModelBuilder: () => OnboardingViewModel(),
@@ -33,7 +36,7 @@ class OnboardingView extends StatelessWidget {
                 elevation: 0,
                 height: 1.sh,
                 width: 1.sw,
-                color: Colors.black.withOpacity(0.2),
+                color: appColors.blurColor,
                 child: Center(
                   child: Container(
                     margin: EdgeInsets.only(top: 220.h),
@@ -42,7 +45,7 @@ class OnboardingView extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: 24.w, vertical: 32.h),
                     decoration: BoxDecoration(
-                      color: const Color.fromRGBO(254, 140, 0, 0.9),
+                      color: appColors.primary,
                       borderRadius: BorderRadius.all(Radius.circular(60.r)),
                     ),
                     child: Column(
@@ -59,7 +62,7 @@ class OnboardingView extends StatelessWidget {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 28.sp,
-                                  color: Colors.white,
+                                  color: appColors.surface,
                                 ),
                               ),
                             ),
@@ -73,7 +76,7 @@ class OnboardingView extends StatelessWidget {
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 18.sp,
-                                  color: Colors.white,
+                                  color: appColors.surface,
                                 ),
                               ),
                             ),
@@ -90,7 +93,7 @@ class OnboardingView extends StatelessWidget {
                               height: 10.h,
                               decoration: BoxDecoration(
                                 color: isActive
-                                    ? Colors.white
+                                    ? appColors.onboardingText
                                     : Colors.white.withOpacity(0.4),
                                 borderRadius: BorderRadius.circular(10.r),
                               ),
@@ -103,12 +106,12 @@ class OnboardingView extends StatelessWidget {
                           children: [
                             TextButton(
                                 onPressed: () {
-                                  Get.offAll(LoginView());
+                                  Get.offAll(const LoginView());
                                 },
                                 child: Text(
-                                  'Skip',
+                                  TextConstants.skip,
                                   style: TextStyle(
-                                      color: Colors.blue.shade900,
+                                      color: appColors.onboardingText,
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.bold),
                                 )),
@@ -121,9 +124,9 @@ class OnboardingView extends StatelessWidget {
                                         .onPageChanged(viewModel.currentIndex);
                                   }
                                 },
-                                child: Text('Next',
+                                child: Text(TextConstants.next,
                                     style: TextStyle(
-                                        color: Colors.blue.shade900,
+                                        color: appColors.onboardingText,
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.bold)))
                           ],
