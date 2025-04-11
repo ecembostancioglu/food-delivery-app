@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class OnboardingViewModel extends BaseViewModel {
-  
+
   final PageController pageController = PageController();
   int currentIndex = 0;
 
@@ -32,4 +32,5 @@ class OnboardingViewModel extends BaseViewModel {
     currentIndex = 0;
     notifyListeners();
   }
+
 }
