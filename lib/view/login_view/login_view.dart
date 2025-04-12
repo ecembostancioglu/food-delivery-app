@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery_app/core/constants/text_constants.dart';
+import 'package:food_delivery_app/injections/locator.dart';
+import 'package:food_delivery_app/services/auth_service.dart';
 import 'package:food_delivery_app/view/login_view/login_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -68,8 +70,16 @@ class LoginView extends StatelessWidget {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      _loginView(viewModel, appColors, false),
-                      _loginView(viewModel, appColors, true),
+                      _loginView(viewModel, appColors, false, () async {
+                        await locator<AuthService>().signInWithEmail(
+                            viewModel.mailController.text,
+                            viewModel.passwordController.text);
+                      }),
+                      _loginView(viewModel, appColors, true, () async {
+                        await locator<AuthService>().createAnAccount(
+                            viewModel.newMailController.text,
+                            viewModel.newPasswordController.text);
+                      }),
                     ],
                   ),
                 )
@@ -82,15 +92,14 @@ class LoginView extends StatelessWidget {
   }
 }
 
-Widget _loginView(
-    LoginViewModel viewModel, AppColorsExtensions appColors, bool isSignUp) {
+Widget _loginView(LoginViewModel viewModel, AppColorsExtensions appColors,
+    bool isSignUp, void Function()? function) {
   return SingleChildScrollView(
     padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.h),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 20.h),
-
         if (isSignUp) ...[
           Text(
             TextConstants.name,
@@ -111,8 +120,6 @@ Widget _loginView(
           ),
           SizedBox(height: 20.h),
         ],
-
-        // EMAIL
         Text(
           TextConstants.emailAdress,
           style: TextStyle(
@@ -132,7 +139,6 @@ Widget _loginView(
           },
         ),
         SizedBox(height: 20.h),
-
         Text(
           TextConstants.password,
           style: TextStyle(
@@ -160,7 +166,6 @@ Widget _loginView(
             return null;
           },
         ),
-
         if (!isSignUp)
           TextButton(
             onPressed: () {},
@@ -168,12 +173,9 @@ Widget _loginView(
                 style: TextStyle(
                     color: appColors.primary, fontWeight: FontWeight.bold)),
           ),
-
         SizedBox(height: 40.h),
-
         ElevatedButton(
-          onPressed: () {
-          },
+          onPressed: function,
           style: ElevatedButton.styleFrom(
             minimumSize: Size(1.sw, 0.08.sh),
             backgroundColor: appColors.primary,

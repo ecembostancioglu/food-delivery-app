@@ -6,6 +6,8 @@ class LoginViewModel extends BaseViewModel{
 
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController newMailController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
 
   TabController? tabController;

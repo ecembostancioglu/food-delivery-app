@@ -2,6 +2,7 @@ import 'dart:ui';
 
 abstract class AppColors {
   static const red = Color.fromARGB(255, 201, 0, 0);
+  static const green = Color(0xFF2ECC71);
   static const seashell = Color(0xFFF7EBE8);
   static const grey = _GreyColors();
 }
