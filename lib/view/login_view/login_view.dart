@@ -3,7 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery_app/core/constants/text_constants.dart';
 import 'package:food_delivery_app/injections/locator.dart';
 import 'package:food_delivery_app/services/auth_service.dart';
+import 'package:food_delivery_app/view/forgot_password_view/forgot_password_view.dart';
 import 'package:food_delivery_app/view/login_view/login_view_model.dart';
+import 'package:food_delivery_app/view/onboarding_view/onboarding_view.dart';
+import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../core/extensions/app_color_extensions.dart';
@@ -128,7 +131,8 @@ Widget _loginView(LoginViewModel viewModel, AppColorsExtensions appColors,
               color: appColors.textColor),
         ),
         TextFormField(
-          controller: viewModel.mailController,
+          controller:
+              isSignUp ? viewModel.newMailController : viewModel.mailController,
           validator: (value) {
             if (value == null || value.isEmpty) {
               return TextConstants.emailRequired;
@@ -147,14 +151,23 @@ Widget _loginView(LoginViewModel viewModel, AppColorsExtensions appColors,
               color: appColors.textColor),
         ),
         TextFormField(
-          controller: viewModel.passwordController,
-          obscureText: viewModel.obscureText,
+          controller: isSignUp
+              ? viewModel.newPasswordController
+              : viewModel.passwordController,
+          obscureText:
+              isSignUp ? viewModel.newObscureText : viewModel.obscureText,
           decoration: InputDecoration(
             suffixIcon: IconButton(
-              icon: Icon(viewModel.obscureText
-                  ? Icons.visibility_off
-                  : Icons.visibility),
-              onPressed: viewModel.toggleObscureText,
+              icon: Icon(isSignUp
+                  ? (viewModel.newObscureText
+                      ? Icons.visibility_off
+                      : Icons.visibility)
+                  : (viewModel.obscureText
+                      ? Icons.visibility_off
+                      : Icons.visibility)),
+              onPressed: isSignUp
+                  ? viewModel.toggleNewPasswordObscureText
+                  : viewModel.toggleObscureText,
             ),
           ),
           validator: (value) {
@@ -167,11 +180,14 @@ Widget _loginView(LoginViewModel viewModel, AppColorsExtensions appColors,
           },
         ),
         if (!isSignUp)
-          TextButton(
-            onPressed: () {},
-            child: Text(TextConstants.forgotPassword,
-                style: TextStyle(
-                    color: appColors.primary, fontWeight: FontWeight.bold)),
+          Align(
+            alignment: Alignment.topRight,
+            child: TextButton(
+              onPressed: () => Get.offAll(const ForgotPasswordView()),
+              child: Text(TextConstants.forgotPassword,
+                  style: TextStyle(
+                      color: appColors.primary, fontWeight: FontWeight.bold)),
+            ),
           ),
         SizedBox(height: 40.h),
         ElevatedButton(

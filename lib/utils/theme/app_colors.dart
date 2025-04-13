@@ -12,4 +12,5 @@ class _GreyColors{
 
   final grey50 = const Color(0xFFFAFAFA);
   final grey100 = const Color(0xFFF5F5F5);
+  final grey500 = const Color(0xFF9E9E9E);
 }

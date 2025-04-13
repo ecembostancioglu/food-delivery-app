@@ -93,8 +93,8 @@ class OnboardingView extends StatelessWidget {
                               height: 10.h,
                               decoration: BoxDecoration(
                                 color: isActive
-                                    ? appColors.onboardingText
-                                    : Colors.white.withOpacity(0.4),
+                                    ? appColors.onPrimary
+                                    : appColors.dotColor,
                                 borderRadius: BorderRadius.circular(10.r),
                               ),
                             );

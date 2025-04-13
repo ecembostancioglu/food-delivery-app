@@ -12,7 +12,7 @@ class AuthService {
           email: email, password: password);
       Get.snackbar('Congratulations!', 'Your account created successfully',snackPosition: SnackPosition.BOTTOM,
         backgroundColor: AppColors.green);
-      Future.delayed(const Duration(seconds: 3),(){
+      Future.delayed(const Duration(seconds: 2),(){
         Get.offAll(const HomeView());
       });
     } on FirebaseAuthException catch (e) {
@@ -22,6 +22,10 @@ class AuthService {
       } else if (e.code == 'email-already-in-use') {
         Get.snackbar('Error!', 'An account already exists with that email.',snackPosition: SnackPosition.BOTTOM,
         backgroundColor: AppColors.red);
+      } else {
+        Get.snackbar('Error', e.message ?? 'Unknown error occurred',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppColors.red);
       }
     }
   }
@@ -32,7 +36,7 @@ class AuthService {
           email: email, password: password);
       Get.snackbar('Successful!', 'You are logging in!',snackPosition: SnackPosition.BOTTOM,
         backgroundColor: AppColors.green);
-      Future.delayed(const Duration(seconds: 3),(){
+      Future.delayed(const Duration(seconds: 2),(){
         Get.offAll(const HomeView());
       });
     } on FirebaseAuthException catch (e) {
@@ -40,6 +44,10 @@ class AuthService {
         Get.snackbar('Error!', 'Invalid login credentials.',snackPosition: SnackPosition.BOTTOM,backgroundColor: AppColors.red);
       } else if (e.code == 'wrong-password'){
         Get.snackbar('Error!', 'Wrong password.',snackPosition: SnackPosition.BOTTOM,backgroundColor: AppColors.red);
+      } else {
+        Get.snackbar('Error', e.message ?? 'Unknown error occurred',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppColors.red);
       }
     }
   }

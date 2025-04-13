@@ -12,9 +12,15 @@ class LoginViewModel extends BaseViewModel{
 
   TabController? tabController;
   bool obscureText = true;
+  bool newObscureText = true;
 
 void toggleObscureText() {
   obscureText = !obscureText;
+  notifyListeners();
+}
+
+void toggleNewPasswordObscureText() {
+  newObscureText = !newObscureText;
   notifyListeners();
 }
 }
