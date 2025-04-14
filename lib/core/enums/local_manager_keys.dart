@@ -7,5 +7,6 @@ enum LocalManagerKeys {
   name,
   surname,
   createdAt,
-  photoUrl
+  photoUrl,
+  locationPermissionShown,
 }

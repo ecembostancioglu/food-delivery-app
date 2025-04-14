@@ -80,6 +80,7 @@ class LoginView extends StatelessWidget {
                       }),
                       _loginView(viewModel, appColors, true, () async {
                         await locator<AuthService>().createAnAccount(
+                            viewModel.nameController.text,
                             viewModel.newMailController.text,
                             viewModel.newPasswordController.text);
                       }),

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/core/routes/app_router.dart';
 import 'package:food_delivery_app/injections/locator.dart';
 import 'package:food_delivery_app/utils/theme/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,8 @@ await LocalManager.preferencesInit();
 await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
+
+print(initialRoute);
 
 setupLocator();
 

@@ -29,9 +29,22 @@ class LocalManager {
   String getStringValue(LocalManagerKeys key) =>
       _preferences?.getString(key.toString()) ?? '';
 
-  bool getBoolValue(LocalManagerKeys key) => 
-  _preferences?.getBool(key.toString()) ?? false;
+  bool getBoolValue(LocalManagerKeys key) =>
+      _preferences?.getBool(key.toString()) ?? false;
 
-  int getIntValur(LocalManagerKeys key) => 
-  _preferences?.getInt(key.toString()) ?? -1;
+  int getIntValue(LocalManagerKeys key) =>
+      _preferences?.getInt(key.toString()) ?? -1;
+
+  Future<void> setUserData(dynamic userData) async {
+    await setBoolValue(LocalManagerKeys.isOnboardingDone, true);
+    await setBoolValue(LocalManagerKeys.isLogin, true);
+    await setStringValue(LocalManagerKeys.userId, userData.userId);
+    await setStringValue(LocalManagerKeys.mail, userData.email);
+    await setStringValue(LocalManagerKeys.name, userData.name);
+    await setStringValue(
+        LocalManagerKeys.createdAt, userData.createdAt.toIso8601String());
+    await setStringValue(LocalManagerKeys.photoUrl, userData.photoUrl);
+    await setBoolValue(LocalManagerKeys.locationPermissionShown, userData.locationPermissionShown);
+
+  }
 }

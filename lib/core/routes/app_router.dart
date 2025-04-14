@@ -7,7 +7,7 @@ import 'package:food_delivery_app/view/onboarding_view/onboarding_view.dart';
 import '../../view/home_view/home_view.dart';
 
 bool isLogin = LocalManager().getBoolValue(LocalManagerKeys.isLogin);
-String initialRoute = isLogin == true ? '/home' : '/';
+String initialRoute = isLogin == true ? '/login' : '/';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -23,12 +23,12 @@ class AppRouter {
               builder: (context) => const LoginView());
         }
 
-      case '/':
+      case '/login':
         if (!isLogin) {
           return MaterialPageRoute(
-              builder: (context) => const OnboardingView());
+              builder: (context) => const LoginView());
         } else {
-          return MaterialPageRoute(builder: (context) => const HomeView());
+          return MaterialPageRoute(builder: (context) => const LoginView());
         }
       default:
         return MaterialPageRoute(

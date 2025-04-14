@@ -107,6 +107,7 @@ class OnboardingView extends StatelessWidget {
                             TextButton(
                                 onPressed: () {
                                   Get.offAll(const LoginView());
+                                  viewModel.completedOnboarding();
                                 },
                                 child: Text(
                                   TextConstants.skip,
