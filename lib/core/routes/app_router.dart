@@ -28,7 +28,7 @@ class AppRouter {
           return MaterialPageRoute(
               builder: (context) => const LoginView());
         } else {
-          return MaterialPageRoute(builder: (context) => const LoginView());
+          return MaterialPageRoute(builder: (context) => const HomeView());
         }
       default:
         return MaterialPageRoute(

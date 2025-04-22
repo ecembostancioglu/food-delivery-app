@@ -1,11 +1,6 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:food_delivery_app/domain/models/user_model.dart';
 import 'package:food_delivery_app/injections/locator.dart';
 import 'package:food_delivery_app/services/firebase_service.dart';
-import 'package:food_delivery_app/services/local_manager.dart';
 import 'package:food_delivery_app/utils/theme/app_colors.dart';
 import 'package:food_delivery_app/view/home_view/home_view.dart';
 import 'package:get/get.dart';
@@ -13,21 +8,21 @@ import 'package:get/get.dart';
 class AuthService {
   final _firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> createAnAccount(String name,String email, String password) async {
+  Future<void> createAnAccount(
+      String name, String email, String password) async {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       final user = credential.user;
-     
-     locator<FirebaseService>().atFirebaseData(user!.uid, email, name);
 
-        Get.snackbar('Congratulations!', 'Your account created successfully',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: AppColors.green);
-        Future.delayed(const Duration(seconds: 2), () {
-          Get.offAll(const HomeView());
-        });
-      
+      locator<FirebaseService>().atFirebaseData(user!.uid, email, name);
+
+      Get.snackbar('Congratulations!', 'Your account created successfully',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppColors.green);
+      Future.delayed(const Duration(seconds: 2), () {
+        Get.offAll(const HomeView());
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Get.snackbar('Error!', 'The password provided is too weak.',
