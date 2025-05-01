@@ -5,6 +5,7 @@ abstract class AppColors {
   static const green = Color(0xFF2ECC71);
   static const seashell = Color(0xFFF7EBE8);
   static const grey = _GreyColors();
+  static const yellow = Color(0xFFFFC107);
 }
 
 class _GreyColors{

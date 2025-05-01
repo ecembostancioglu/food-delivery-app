@@ -4,6 +4,8 @@ import 'package:food_delivery_app/view/home_view/home_view_model.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../core/extensions/app_color_extensions.dart';
+import '_components/card_widget.dart';
+import '_components/menu_listview_widget.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -64,81 +66,29 @@ class HomeView extends StatelessWidget {
                 SizedBox(
                   height: 80.h,
                   child: ListView.builder(
-                      itemCount: viewModel.restaurantNames.length,
+                      itemCount: viewModel.categories.length,
                       physics: const ScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        final restaurantNames = viewModel.restaurantNames[index];
-                        final images= viewModel.restaurants[index].imageUrl;
+                        final category = viewModel.categories[index].name;
+                        final images = viewModel.categories[index].imageUrl;
                         return MenuListViewWidget(
-                            image:images, title: restaurantNames);
+                            image: images, title: category);
                       }),
                 ),
                 SizedBox(height: 10.h),
                 SizedBox(
                   height: 1.sh,
                   child: GridView.builder(
+                      shrinkWrap: true,
                       itemCount: viewModel.restaurants.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2),
                       itemBuilder: (context, index) {
                         final restaurant = viewModel.restaurants[index];
-                        return Card(
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.r),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(20.r)),
-                                child: Image.network(
-                                  restaurant.imageUrl,
-                                  height: 100.h,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.w),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      restaurant.name,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14.sp,
-                                        color: appColors.textColor,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 4.h),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.star,
-                                            color: Colors.amber, size: 16.sp),
-                                        SizedBox(width: 4.w),
-                                        Text(
-                                          restaurant.rating.toString(),
-                                          style: TextStyle(
-                                            fontSize: 13.sp,
-                                            color: appColors.textColor
-                                                .withOpacity(0.7),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
+                        return CardWidget(restaurant: restaurant, appColors: appColors);
                       }),
                 )
               ],
@@ -150,33 +100,3 @@ class HomeView extends StatelessWidget {
   }
 }
 
-class MenuListViewWidget extends StatelessWidget {
-  final String image;
-  final String title;
-  const MenuListViewWidget(
-      {super.key, required this.image, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    final appColors = Theme.of(context).extension<AppColorsExtensions>()!;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Container(
-            height: 50.h,
-            width: 50.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20.r))),
-            child: Image.network(image),
-          ),
-          Text(
-            title,
-            style: TextStyle(
-                color: appColors.textColor, fontWeight: FontWeight.w500),
-          )
-        ],
-      ),
-    );
-  }
-}

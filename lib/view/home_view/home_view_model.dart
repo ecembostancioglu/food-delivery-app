@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../core/enums/local_manager_keys.dart';
+import '../../domain/models/category_model.dart';
 import '../../services/local_manager.dart';
 
 class HomeViewModel extends BaseViewModel {
@@ -13,13 +14,13 @@ class HomeViewModel extends BaseViewModel {
   final searchController = TextEditingController();
   FoodService foodService = FoodService();
   List<Restaurant> restaurants = [];
-  List<String> restaurantNames = [];
+  List<Categories> categories = [];
 
   Future<void> init() async {
     setBusy(true);
     try{
       restaurants = await foodService.getAllFoods();
-      restaurantNames = await foodService.getCategoryNames();
+      categories = await foodService.getCategoryNames();
       notifyListeners();
 
     } catch(e) {
