@@ -44,9 +44,11 @@ This project fetches data from a custom REST API.
 
 ## 📱 Screenshots
 
-![Onboarding Screen]
-![Login Screen]
-![Home Screen]
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/a314d258-2875-4bf8-8fb5-bae02587e58d" width="250" alt="Onboarding Screen"/>
+  <img src="https://github.com/user-attachments/assets/0d9e48b2-a48c-4407-845c-14e18d84f3fd" width="250" alt="Login Screen"/>
+  <img src="https://github.com/user-attachments/assets/94907571-7b50-451e-90dd-99817eefc58c" width="250" alt="Home Screen"/>
+</p>
 
 ## 📝 To Do
 
